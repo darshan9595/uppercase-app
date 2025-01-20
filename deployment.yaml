@@ -1,0 +1,22 @@
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  name: uppercase-app-deployment
+  labels:
+    app: uppercase-app
+spec:
+  replicas: 1
+  selector:
+    matchLabels:
+      app: uppercase-app
+  template:
+    metadata:
+      labels:
+        app: uppercase-app
+    spec:
+      containers:
+      - name: uppercase-app
+        image: darshan119/uppercase-app:v2
+        ports:
+        - containerPort: 4000
+        imagePullPolicy: Always

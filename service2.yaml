@@ -1,0 +1,12 @@
+apiVersion: v1
+kind: Service
+metadata:
+  name: reverse-app-service
+spec:
+  selector:
+    app: reverse-app
+  ports:
+    - protocol: TCP
+      port: 80          # Port exposé par le service Kubernetes
+      targetPort: 4001  # Port du conteneur Docker
+  type: ClusterIP

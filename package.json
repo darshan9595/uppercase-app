@@ -1,0 +1,16 @@
+{
+  "name": "uppercase-app",
+  "version": "1.0.0",
+  "description": "Application contenant plusieurs services",
+  "scripts": {
+    "start-service1": "node app.js",
+    "start-service2": "node app2.js",
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "keywords": [],
+  "author": "",
+  "license": "ISC",
+  "dependencies": {
+    "express": "^4.21.2"
+  }
+}

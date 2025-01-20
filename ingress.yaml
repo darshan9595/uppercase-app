@@ -1,0 +1,28 @@
+apiVersion: networking.k8s.io/v1
+kind: Ingress
+metadata:
+  name: uppercase-app-ingress 
+  annotations:
+    nginx.ingress.kubernetes.io/rewrite-target: 
+spec:
+  rules:
+  - host: uppercase.local
+    http:
+      paths:
+      - path: /api/uppercase
+        pathType: Prefix
+        backend:
+          service:
+            name: uppercase-app-service
+            port:
+              number: 80
+  - host: reverse.local
+    http:
+      paths:
+      - path: /api/reverse
+        pathType: Prefix
+        backend:
+          service:
+            name: reverse-app-service
+            port:
+              number: 80
