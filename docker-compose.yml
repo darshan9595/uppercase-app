@@ -1,0 +1,42 @@
+version: '3.8'
+
+services:
+  postgres-db:
+    image: postgres:latest
+    container_name: postgres-db
+    environment:
+      POSTGRES_USER: postgres
+      POSTGRES_PASSWORD: apapa
+      POSTGRES_DB: test
+    ports:
+      - "5432:5432" # Mappe PostgreSQL au port local
+    networks:
+      - app-network
+
+  uppercase-app:
+    image: darshan119/uppercase-app:v2
+    container_name: uppercase-app
+    ports:
+      - "4000:4000" # Mappe le port pour accéder au service 1
+    networks:
+      - app-network
+
+  reverse-app:
+    build:
+      context: .
+      dockerfile: Dockerfile-service2 # Remplace par le nom de ton Dockerfile pour app2
+    container_name: reverse-app
+    environment:
+      UPPERCASE_URL: http://uppercase-app:4000 # Adresse du Service 1
+      PGHOST: postgres-db                    # Adresse de PostgreSQL
+      PGUSER: postgres                       # Utilisateur PostgreSQL
+      PGPASSWORD: apapa                      # Mot de passe PostgreSQL
+      PGDATABASE: test                       # Base de données PostgreSQL
+    ports:
+      - "4001:4001" # Mappe le port pour accéder au service 2
+    networks:
+      - app-network
+
+networks:
+  app-network: # Ajout des deux-points ici
+    driver: bridge
